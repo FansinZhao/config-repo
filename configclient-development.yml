@@ -14,4 +14,4 @@ management:
     enabled: false
 
 # 用户配置信息
-serviceA: discovery-client-a
+serviceB: discovery-client-b
