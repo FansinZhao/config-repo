@@ -1,0 +1,17 @@
+server:
+  port: 8011
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/,http://127.0.0.1:8760/eureka/
+  instance:
+    prefer-ip-address: true
+management:
+  health:
+    refresh:
+      enabled: true
+  security:
+    enabled: false
+
+# 用户配置信息
+serviceA: discovery-client-a
