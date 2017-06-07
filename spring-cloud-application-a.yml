@@ -1,8 +1,9 @@
+######### 从配置中心读取,如果读取成功则替换,否则采用下面默认配置 ###########
 info:
   component: Application Server ${spring.application.name}
 # 加入服务发现
 server:
-  port: 8010
+  port: 8011 # 与从config中心拿到的端口信息不同
 eureka:
   client:
     service-url:
@@ -16,5 +17,19 @@ management:
       enabled: true
   security:
     enabled: false
+#loadbalance 算法
+#1  BestAvailableRule：最小并发
+#2  ZoneAvoidanceRule：性能和可用性最优
+#3  AvailabilityFilteringRule：默认算法 去除熔断失败和高并发，使用 RoundRobinRule 轮询选择
+#4  RoundRobinRule：轮询
+#5  WeightedResponseTimeRule：响应时间最小
+#6  !ResponseTimeWeightedRule：废弃，使用WeightedResponseTimeRule
+#7  RandomRule：随机选择
+#8  RetryRule：默认500毫秒，不断使用 RoundRobinRul 轮询选择
+spring-cloud-application-a: #本应用名称
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.AvailabilityFilteringRule #默认
+
 # 用户配置信息 配置调用服务接口
-invokeService: spring-cloud-application-a
+ServiceId:
+  RibbonController: spring-cloud-application-a
